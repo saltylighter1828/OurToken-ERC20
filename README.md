@@ -1,66 +1,69 @@
-## Foundry
+OurToken (OT)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+OurToken is a simple ERC-20 token implemented in Solidity using OpenZeppelin's ERC20 library. It allows for the creation of a fixed supply of tokens that are initially assigned to the contract deployer.
 
-Foundry consists of:
+Features
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Fully ERC-20 compliant
 
-## Documentation
+Minted initial supply at deployment
 
-https://book.getfoundry.sh/
+Token name: OurToken
 
-## Usage
+Token symbol: OT
 
-### Build
+Contract
+//SPDX-License-Identifier: MIT
 
-```shell
-$ forge build
-```
+pragma solidity ^0.8.18;
 
-### Test
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-```shell
-$ forge test
-```
+contract OurToken is ERC20 {
+    constructor(uint256 initialSupply) ERC20("OurToken", "OT") {
+        _mint(msg.sender, initialSupply);
+    }
+}
 
-### Format
+Constructor
+constructor(uint256 initialSupply)
 
-```shell
-$ forge fmt
-```
 
-### Gas Snapshots
+initialSupply: The number of tokens to mint initially, assigned to the deployer's address.
 
-```shell
-$ forge snapshot
-```
+Automatically sets the token name to "OurToken" and symbol to "OT".
 
-### Anvil
+Deployment Example (JavaScript / Hardhat)
+const { ethers } = require("hardhat");
 
-```shell
-$ anvil
-```
+async function main() {
+  const initialSupply = ethers.utils.parseUnits("1000000", 18); // 1,000,000 OT tokens
+  const Token = await ethers.getContractFactory("OurToken");
+  const token = await Token.deploy(initialSupply);
 
-### Deploy
+  await token.deployed();
+  console.log("OurToken deployed to:", token.address);
+}
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
 
-### Cast
+Usage
 
-```shell
-$ cast <subcommand>
-```
+Once deployed, you can use standard ERC-20 functions:
 
-### Help
+balanceOf(address account) – Get the token balance of an address.
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+transfer(address recipient, uint256 amount) – Send tokens to another address.
+
+approve(address spender, uint256 amount) – Allow another address to spend tokens on your behalf.
+
+transferFrom(address sender, address recipient, uint256 amount) – Transfer tokens from a previously approved account.
+
+License
+
+This project is licensed under the MIT License.
