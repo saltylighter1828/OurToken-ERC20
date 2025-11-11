@@ -1,18 +1,23 @@
-OurToken (OT)
+🚀 OurToken (OT)
 
-OurToken is a simple ERC-20 token implemented in Solidity using OpenZeppelin's ERC20 library. It allows for the creation of a fixed supply of tokens that are initially assigned to the contract deployer.
 
-Features
 
-Fully ERC-20 compliant
 
-Minted initial supply at deployment
 
-Token name: OurToken
 
-Token symbol: OT
+OurToken (OT) is a standard ERC-20 token built on Solidity using OpenZeppelin’s battle-tested libraries. It is designed for simplicity, security, and full ERC-20 compatibility, making it ideal for deployment on Ethereum or EVM-compatible networks.
 
-Contract
+🌟 Features
+
+✅ ERC-20 Standard Compliant – Fully compatible with wallets, DEXs, and DeFi protocols.
+
+✅ Initial Mint – Entire token supply is minted at deployment.
+
+✅ Customizable Supply – You can define the initial token supply when deploying the contract.
+
+✅ Secure & Tested – Leverages OpenZeppelin’s audited libraries.
+
+📄 Contract Overview
 //SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.18;
@@ -26,14 +31,14 @@ contract OurToken is ERC20 {
 }
 
 Constructor
-constructor(uint256 initialSupply)
+Parameter	Type	Description
+initialSupply	uint256	Total number of tokens minted at deployment. Assigned to deployer.
 
+Token Name: OurToken
 
-initialSupply: The number of tokens to mint initially, assigned to the deployer's address.
+Token Symbol: OT
 
-Automatically sets the token name to "OurToken" and symbol to "OT".
-
-Deployment Example (JavaScript / Hardhat)
+🚀 Deployment Example (Hardhat / JavaScript)
 const { ethers } = require("hardhat");
 
 async function main() {
@@ -42,7 +47,7 @@ async function main() {
   const token = await Token.deploy(initialSupply);
 
   await token.deployed();
-  console.log("OurToken deployed to:", token.address);
+  console.log("✅ OurToken deployed to:", token.address);
 }
 
 main()
@@ -52,18 +57,23 @@ main()
     process.exit(1);
   });
 
-Usage
+🔧 Usage
 
-Once deployed, you can use standard ERC-20 functions:
+After deployment, you can use all standard ERC-20 functions:
 
-balanceOf(address account) – Get the token balance of an address.
+Function	Description
+balanceOf(address account)	Returns the token balance of the specified address.
+transfer(address recipient, uint256 amount)	Transfers tokens to another address.
+approve(address spender, uint256 amount)	Approves another address to spend tokens on your behalf.
+transferFrom(address sender, address recipient, uint256 amount)	Transfers tokens from an approved account.
+📚 Resources & References
 
-transfer(address recipient, uint256 amount) – Send tokens to another address.
+OpenZeppelin ERC20 Docs
 
-approve(address spender, uint256 amount) – Allow another address to spend tokens on your behalf.
+Solidity 0.8 Docs
 
-transferFrom(address sender, address recipient, uint256 amount) – Transfer tokens from a previously approved account.
+ERC20 Standard
 
-License
+⚖️ License
 
 This project is licensed under the MIT License.
